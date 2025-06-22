@@ -5,8 +5,8 @@ import Task from "./Task";
 
 function Board() {
   const [todoTasks, setTodoTasks] = useState([]);
-  const [doingTasks, setDoingTasks] = useState("");
-  const [doneTasks, setDoneTasks] = useState("");
+  const [doingTasks, setDoingTasks] = useState([]);
+  const [doneTasks, setDoneTasks] = useState([]);
   const [newTaskTitle, setNewTaskTitle] = useState("");
 
 function handleAddTask() {
@@ -18,13 +18,7 @@ function handleAddTask() {
   }
 
   setTodoTasks([...todoTasks, newTask])
-  setNewTaskTitle("") 
-
-  setDoingTasks([...doingTasks, newTask])
-  setDoingTasks("")
-
-  setDoneTasks([...doneTasks, newTask])
-  setDoneTasks("")
+  setNewTaskTitle("");
 
 }
   
@@ -35,7 +29,7 @@ function handleAddTask() {
             <Task key={task.id} title={task.title} />
             ))}
             <div className="mb-4">
-              <input type="text" value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)} placeholder="Nouvelle Tâches..." className="w-full p-2 rounded text-black" />
+              <input type="text" value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)} onKeyDown={(e) => {if (e.key === "Enter"){handleAddTask();}}} placeholder="Nouvelle Tâches..." className="w-full p-2 rounded text-black" />
               <button onClick={handleAddTask} className="mt-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full">Ajouter</button>
             </div>
         </Column>
@@ -43,19 +37,13 @@ function handleAddTask() {
             {doingTasks.map(task => (
             <Task key={task.id} title={task.title} />
             ))}
-            <div className="mb-4">
-              <input type="text" value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)} placeholder="Nouvelle Tâches..." className="w-full p-2 rounded text-black" />
-              <button onClick={handleAddTask} className="mt-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full">Ajouter</button>
-            </div>
+            
         </Column>
         <Column title="Terminé">
             {doneTasks.map(task => (
             <Task key={task.id} title={task.title} />
             ))}
-            <div className="mb-4">
-              <input type="text" value={newTaskTitle} onChange={(e) => setNewTaskTitle(e.target.value)} placeholder="Nouvelle Tâches..." className="w-full p-2 rounded text-black" />
-              <button onClick={handleAddTask} className="mt-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded w-full">Ajouter</button>
-            </div>
+           
         </Column>
     </div>
   );
